@@ -6,12 +6,13 @@
     <title>Redirecting...</title>
     <script>
         window.onload = function() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var telegramChannel = urlParams.get("channel");
-            if (telegramChannel) {
-                window.location.href = "tg://join?invite=" + telegramChannel;
+            const urlParams = new URLSearchParams(window.location.search);
+            const channel = urlParams.get("channel");
+
+            if (channel) {
+                window.location.href = `tg://resolve?domain=${channel}`;
             } else {
-                document.body.innerHTML = "<h2>Invalid link</h2>";
+                document.body.innerHTML = "<h1>Invalid link</h1>";
             }
         };
     </script>
@@ -19,11 +20,7 @@
 <body>
     <p>If you are not redirected, <a id="redirectLink" href="#">click here</a>.</p>
     <script>
-        var urlParams = new URLSearchParams(window.location.search);
-        var telegramChannel = urlParams.get("channel");
-        if (telegramChannel) {
-            document.getElementById("redirectLink").href = "tg://join?invite=" + telegramChannel;
-        }
+        document.getElementById("redirectLink").href = `tg://resolve?domain=${new URLSearchParams(window.location.search).get("channel")}`;
     </script>
 </body>
 </html>
